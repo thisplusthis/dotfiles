@@ -1,7 +1,8 @@
 {
     "snip1": {
         "prefix": "today",
-        "body": "now = datetime.datetime.now(pytz.UTC)"
+        "body": "now = datetime.datetime.now(pytz.UTC)",
+        "description": "add today date in datetime"
 	},
     "snip2": {
         "prefix": "logimport",
@@ -9,7 +10,8 @@
             "import logging",
             "",
             "logger = logger.getLogger(__name__)"
-		]
+        ],
+        "description": "import logging"
 	},
     "snip3": {
         "prefix": "cls",
@@ -17,6 +19,7 @@
             "class $1(object):",
             "\tdef __init__(self):",
             "\t\tpass"
-        ]
+        ],
+        "description": "make a class object"
     }
 }
