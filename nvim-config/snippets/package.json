@@ -1,12 +1,12 @@
 {
-	"name": "dev-snippets",
-	"contributes": {
-		"snippets": [
-			{
-				"language": [
-					"all"
-				],
-				"path": "./all.json"
+    "name": "dev-snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": [
+                    "all"
+                ],
+                "path": "./all.json"
 			},
             {
                 "language": [

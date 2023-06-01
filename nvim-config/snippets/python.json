@@ -1,12 +1,12 @@
 {
-	"snip1": {
-		"prefix": "today",
-		"body": "now = datetime.datetime.now(pytz.UTC)"
+    "snip1": {
+        "prefix": "today",
+        "body": "now = datetime.datetime.now(pytz.UTC)"
 	},
     "snip2": {
-		"prefix": "logimport",
-		"body": [
-			"import logging",
+        "prefix": "logimport",
+        "body": [
+            "import logging",
             "",
             "logger = logger.getLogger(__name__)"
 		]
