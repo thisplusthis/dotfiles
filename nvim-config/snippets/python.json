@@ -3,7 +3,7 @@
         "prefix": "today",
         "body": "now = datetime.datetime.now(pytz.UTC)",
         "description": "add today date in datetime"
-	},
+    },
     "snip2": {
         "prefix": "logimport",
         "body": [
@@ -12,7 +12,7 @@
             "logger = logger.getLogger(__name__)"
         ],
         "description": "import logging"
-	},
+    },
     "snip3": {
         "prefix": "cls",
         "body": [
