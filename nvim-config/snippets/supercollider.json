@@ -3,7 +3,7 @@
         "prefix": "sin",
         "body": "SinOsc.$1($2, 0.0, $3)",
         "description": "Basic SinOsc"
-	},
+    },
     "snip2": {
         "prefix": "pbind",
         "body": "(r=Pbind();)",
