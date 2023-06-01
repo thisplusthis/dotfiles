@@ -2,8 +2,7 @@
 # Basic .dotfiles for bash and nvim
 
 ### Prerequistes
-1. Install via Homebrew
-- `brew install lua easygit pandoc ripgrep`
+1. Install: `brew install lua lazygit pandoc ripgrep`
 
 2. Symlink `nvim-config` contents to `~/.config/nvim/` and run `:PackerSync`
 
