@@ -1,12 +1,13 @@
 {
 	"snip1": {
         "prefix": "sin",
-		"body": "SinOsc.$1($2, 0.0, $3)",
-        "description": "SinOsc"
+        "body": "SinOsc.$1($2, 0.0, $3)",
+        "description": "Basic SinOsc"
 	},
     "snip2": {
         "prefix": "pbind",
-        "body": "(r=Pbind();)"
+        "body": "(r=Pbind();)",
+        "description": "Basic Pbind"
     },
     "snip3": {
         "prefix": "rout",
