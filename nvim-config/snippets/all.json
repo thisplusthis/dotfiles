@@ -1,0 +1,9 @@
+{
+	"snip1": {
+        "prefix": "readfile",
+		"body": [
+			"with open($1) as f:",
+			"\ttext = f.read()"
+		]
+	}
+}

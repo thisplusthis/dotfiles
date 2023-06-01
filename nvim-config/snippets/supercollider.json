@@ -1,0 +1,45 @@
+{
+	"snip1": {
+        "prefix": "sin",
+		"body": "SinOsc.$1($2, 0.0, $3)",
+        "description": "SinOsc"
+	},
+    "snip2": {
+        "prefix": "pbind",
+        "body": "(r=Pbind();)"
+    },
+    "snip3": {
+        "prefix": "rout",
+        "body": [
+            "(",
+            "r = Routine({",
+            "\tloop {",
+            "\t\t'running'.postln;",
+            "\t\t$1.yield;",
+            "\t}",
+            "})",
+            ")"
+        ]
+    },
+    "snip4": {
+        "prefix": "sdef",
+        "body": [
+            "(",
+            "SynthDef($1, { \\out.ir(0)",
+            "\tOut.ar(out, $2)",
+            "}).add;",
+            ")"
+        ],
+        "description": "basic SynthDef with SinOsc"
+    },
+    "snip5": {
+        "prefix": "prand",
+        "body": "Prand($1, $2)",
+        "description": "Basic Prand with optional list and repeats"
+    },
+    "snip6": {
+        "prefix": "pseq",
+        "body": "Pseq($1, $2)",
+        "description": "Basic Pseq with optional list and repeats."
+    }
+}

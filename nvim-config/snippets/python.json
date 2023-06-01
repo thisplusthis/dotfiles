@@ -1,0 +1,26 @@
+{
+	"snip4": {
+		"prefix": "today",
+		"body": "now = datetime.datetime.now(pytz.UTC)"
+	},
+    "snip5": {
+		"prefix": "logimport",
+		"body": [
+			"import logging",
+            "",
+            "logger = logger.getLogger(__name__)"
+		]
+	},
+    "snip6": {
+        "prefix": "modelimport",
+        "body": "from atlas.apps.$1.models import $2"
+    },
+    "snip7": {
+        "prefix": "cls",
+        "body": [
+            "class $1(object):",
+            "\tdef __init__(self):",
+            "\t\tpass"
+        ]
+    }
+}
