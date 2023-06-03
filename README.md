@@ -6,5 +6,5 @@
 
 2. Symlink `nvim` to `~/.config/nvim/` and run `:PackerSync`
 
-3. Symlink `bash_{aliases, profile}`, `pythonrc.py` and `gitconfig` to $HOME directory
+3. Symlink `bash_{aliases, profile, private}`, `pythonrc.py` and `gitconfig` to $HOME directory
 
