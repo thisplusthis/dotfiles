@@ -1,0 +1,48 @@
+# Starship config
+
+format = """
+$username$directory$python$nodejs$cmd_duration
+$git_branch$git_status$character"""
+
+[username]
+format = "[\\[$user\\]](cyan)"
+show_always = true
+
+[directory]
+format = "[\\[$path\\]](yellow)"
+truncation_length = 4
+truncate_to_repo = false
+
+[git_branch]
+format = "[❨git::$branch❩](#c678dd)"
+symbol = ""
+
+[git_status]
+format = '[$all_status$ahead_behind](red)'
+ahead = "↑$count"
+behind = "↓$count"
+staged = "+$count"
+modified = "!$count"
+untracked = "?$count"
+deleted = "✗$count"
+stashed = ""
+
+[python]
+format = "([❨$virtualenv❩](blue))"
+symbol = ""
+detect_files = ["pyproject.toml", "requirements.txt", ".python-version"]
+
+[nodejs]
+format = "[ node:$version](green)"
+detect_files = ["package.json"]
+
+[docker_context]
+disabled = true
+
+[character]
+success_symbol = "[>](magenta)"
+error_symbol = "[>](red)"
+
+[cmd_duration]
+min_time = 2_000
+format = " [$duration](dimmed white)"

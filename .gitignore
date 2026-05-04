@@ -1,0 +1,28 @@
+# Sensitive files (never commit)
+.zsh_private
+.bash_private
+.env
+.env.local
+
+# System
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+
+# Neovim
+nvim/lazy-lock.json
+nvim/.netrwhist
+nvim-config/plugin/**
+
+# Node
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+

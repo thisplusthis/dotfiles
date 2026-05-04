@@ -1,0 +1,56 @@
+{
+    "snip1": {
+        "prefix": "sin",
+        "body": "SinOsc.$1(\\freq.kr($2));",
+        "description": "SinOsc (kr or ar)"
+    },
+    "snip2": {
+        "prefix": "sdef",
+        "body": [
+            "(",
+            "SynthDef($1, {",
+            "\tvar sig, env, mod;",
+            "\tsig = $2 * \\amp.kr(0.5);",
+            "\tOut.ar(\\out.ir(0), sig!2);",
+            "}).add;",
+            ")"
+        ],
+        "description": "Basic SynthDef with SinOsc"
+    },
+    "snip3": {
+        "prefix": "env",
+        "body": "env = EnvGen.ar(Env([0, 1, 0], [\\atk.kr(0.1), \\rel.kr(0.5)], [\\exp, \\exp]));",
+        "description": "in line envelope"
+    },
+    "snip4": {
+        "prefix": "lfsin",
+        "body": "lfo = SinOsc.kr(\\hz.kr($1));",
+        "description": "control rate sin wave"
+    },
+    "snip5": {
+        "prefix": "lftri",
+        "body": "lfo = LFTri.kr(\\hz.kr($1));",
+        "description": "control rate triangle wave"
+    },
+    "snip6": {
+        "prefix": "tree",
+        "body": "s.plotTree;",
+        "description": "open server plot tree window"
+    },
+    "snip7": {
+        "prefix": "func",
+        "body": [
+            "(",
+            "f = {",
+            "\t$1",
+            "};",
+            ")"
+        ],
+        "description": "generic function assigned to variable f"
+    },
+    "snip8": {
+        "prefix": "do",
+        "body": "$1.do({$2});",
+        "description": "do x amount of times"
+    }
+}

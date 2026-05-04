@@ -1,0 +1,77 @@
+###################
+# GENERAL ALIASES #
+###################
+alias c='clear'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias dev='cd ~/dev/'
+alias nv='nvim'
+alias web='w3m duckduckgo.com'
+
+###################
+# BETTER CLI TOOLS #
+###################
+alias l='eza -la --icons --group-directories-first --git'
+alias lt='eza --tree --icons --level=2'
+alias cat='bat --paging=never'
+
+###################
+# PYTHON #
+###################
+alias py='python3'
+alias pip='uv pip'
+alias venv='uv venv'
+
+###################
+# NODE / NPM #
+###################
+alias node-v='node --version'
+alias npm-v='npm --version'
+alias npm-ls='npm ls --depth=0'
+alias npm-check='npm outdated'
+alias npm-audit-fix='npm audit fix'
+
+###################
+# DOCKER #
+###################
+alias dk='docker'
+alias dkl='docker logs'
+alias dklf='docker logs -f'
+alias dki='docker image'
+alias dkil='docker image ls'
+alias dkc='docker container'
+alias dkcl='docker container ls'
+alias dks='docker service'
+alias dkr='docker run'
+alias dkrm='docker rm'
+alias dkv='docker volume'
+alias dkvl='docker volume ls'
+alias dkp='docker system prune -a --volumes'
+alias dkpr='docker system prune --volumes'
+# Fancy formatted output
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.Image}}"'
+alias dpsa='docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.Image}}"'
+alias dlog='docker logs --tail 50 -f'   # dlog <container>
+alias dexec='docker exec -it'           # dexec <container> bash
+alias dvr='docker volume rm $(docker volume ls -q)'  # remove all docker volumes
+alias dcr='docker stop $(docker ps -aq); docker rm $(docker ps -aq)'  # stop and remove all
+alias dir='docker rmi -f $(docker images -a -q)'  # remove all docker images
+alias dnr='docker network rm $(docker network ls -q)'  # remove all docker networks
+# Docker compose
+alias dc='docker compose'
+alias dcu='dc up'
+alias dcd='dc down'
+alias dcb='dc build'
+alias dcrestart='dc restart'
+
+###################
+# CONFIG EDITING #
+###################
+alias ezsh='nvim ~/.zshrc'
+alias szsh='source ~/.zshrc'
+alias nvc='cd ~/.config/nvim'
+alias tmc='cd ~/.config/tmux'
+
+# Git aliases are in ~/.gitconfig — use: git <alias>
+# Examples: git s (status), git c (commit), git p (push), git l (log), etc.
+
