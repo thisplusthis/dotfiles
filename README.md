@@ -49,13 +49,17 @@ The install script will:
 - git, neovim, tmux, zsh, fzf, ripgrep, fd
 
 **CLI enhancements:**
-- bat (better cat), eza (better ls), starship (prompt), atuin (history), zoxide (cd), direnv (env)
+- bat (better cat), eza (better ls), starship (prompt), atuin (history), zoxide (cd), direnv (env), delta (git diffs)
 
 **Dev tools:**
 - docker, lazygit, lazydocker, gh, nvm, rust, uv
+- Formatters: prettier, black, isort, stylua, shellcheck
+
+**Terminal:**
+- Mononoki Nerd Font (icons in eza, starship, etc.)
 
 **Utilities:**
-- btop, ctop, jq, yq, pandoc, w3m, httpie, tldr, tree, wget, tree-sitter, glow
+- btop, ctop, dust (disk usage), jq, yq, pandoc, w3m, httpie, tldr, tree, wget, tree-sitter, glow
 
 ## Usage
 

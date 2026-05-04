@@ -540,6 +540,20 @@ ls                 # Aliased: eza with icons
 lt                 # Tree view (level 2)
 ```
 
+### Delta (Better Git Diffs)
+
+Syntax-highlighted side-by-side git diffs with line numbers.
+
+**Already configured** in `.gitconfig` for all git commands:
+```bash
+git diff                # Shows side-by-side diffs with syntax highlighting
+git log -p              # Shows commits with delta diffs
+git show               # Shows commit details with delta diffs
+```
+
+**Theme:** Dracula
+**Features:** Side-by-side comparison, line numbers, syntax highlighting, merge conflict markers
+
 ### Starship (Already Covered Above)
 
 ### Atuin
@@ -576,6 +590,25 @@ Automatically loads `.env` files when entering a directory.
 direnv allow          # Trust the .envrc
 direnv deny           # Remove trust
 ```
+
+### Dust (Disk Usage)
+
+Better alternative to `du` command for analyzing disk space usage.
+
+```bash
+dust                  # Show disk usage in current directory
+dust /path/to/dir    # Show disk usage of specific directory
+dust -r              # Reverse sort (largest first)
+dust -n 10           # Show top 10 directories
+dust -d 2            # Limit depth to 2 levels
+```
+
+**Features:**
+- Cleaner output than `du`
+- Human-readable sizes (KB, MB, GB)
+- Colored output
+- Faster than `du`
+- Tree-like visualization
 
 ### Lazygit
 
@@ -669,6 +702,54 @@ dcr                  # Stop and remove all containers
 COMPOSE_DOCKER_CLI_BUILD=0     # Use docker build, not buildkit
 DOCKER_BUILDKIT=0              # Disable buildkit
 ```
+
+---
+
+## Code Formatters & Linters
+
+System-level formatters installed for command-line use and Neovim integration.
+
+### Prettier (JavaScript/TypeScript/JSON)
+
+```bash
+prettier file.js                # Format file (prints to stdout)
+prettier --write file.js        # Format in-place
+prettier --write src/           # Format entire directory
+prettier --check file.js        # Check if formatted (exit 0/1)
+```
+
+### Black (Python)
+
+```bash
+black file.py                   # Format file
+black src/                      # Format directory
+black --check file.py           # Check formatting
+```
+
+### isort (Python imports)
+
+```bash
+isort file.py                   # Sort imports in-place
+isort src/                      # Sort imports in directory
+isort --check file.py           # Check import sorting
+```
+
+### stylua (Lua)
+
+```bash
+stylua file.lua                 # Format Lua file
+stylua src/                     # Format directory
+stylua --check file.lua         # Check formatting
+```
+
+### shellcheck (Bash/Shell)
+
+```bash
+shellcheck script.sh            # Lint shell script
+shellcheck -S style script.sh   # Check with style warnings
+```
+
+**Integration:** All formatters are configured in Neovim via conform.nvim. They can also be used standalone from the command line for batch formatting.
 
 ---
 

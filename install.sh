@@ -36,6 +36,7 @@ PACKAGES=(
     git
     lazygit
     gh
+    delta
 
     # Editors & shells
     neovim
@@ -62,6 +63,7 @@ PACKAGES=(
     # Monitoring
     btop
     ctop
+    dust
 
     # Data tools
     jq
@@ -72,6 +74,13 @@ PACKAGES=(
     rust
     uv
     ipython
+
+    # Code formatters & linters (system-level)
+    prettier
+    black
+    isort
+    stylua
+    shellcheck
 
     # Utilities
     pandoc
@@ -94,6 +103,30 @@ for package in "${PACKAGES[@]}"; do
 done
 
 echo -e "\n${GREEN}✓ All packages installed${NC}\n"
+
+# Install Nerd Fonts
+echo -e "${BLUE}🔤 Installing Nerd Fonts...${NC}"
+
+# Tap homebrew-cask-fonts if not already tapped
+if ! brew tap | grep -q homebrew/cask-fonts; then
+    echo -e "${YELLOW}→${NC} Tapping homebrew/cask-fonts..."
+    brew tap homebrew/cask-fonts
+fi
+
+FONTS=(
+    font-mononoki-nerd-font
+)
+
+for font in "${FONTS[@]}"; do
+    if brew list "$font" &> /dev/null; then
+        echo -e "${GREEN}✓${NC} $font (already installed)"
+    else
+        echo -e "${YELLOW}→${NC} Installing $font..."
+        brew install --cask "$font"
+    fi
+done
+
+echo -e "\n${GREEN}✓ Nerd Fonts installed${NC}\n"
 
 # Create symlinks
 echo -e "${BLUE}🔗 Creating symlinks...${NC}"
