@@ -113,11 +113,14 @@ Tmux allows you to manage multiple terminal sessions, windows, and panes.
 
 ### Key Bindings
 
+**Note:** `prefix` = `Ctrl-s` (not the default `Ctrl-b`)
+
 **Sessions:**
 ```
 prefix s        # List/select sessions
 prefix d        # Detach from session
 prefix $        # Rename session
+prefix :        # Command prompt
 ```
 
 **Windows:**
@@ -125,32 +128,43 @@ prefix $        # Rename session
 prefix c        # Create new window
 prefix n        # Next window
 prefix p        # Previous window
-prefix l        # Last window
+prefix l        # Last window (toggle)
 prefix w        # List/select windows
 prefix &        # Kill window
+prefix ,        # Rename window
 Alt+→           # Next window (without prefix)
 Alt+←           # Previous window (without prefix)
 ```
 
 **Panes:**
 ```
-prefix |        # Split left/right (same cwd)
-prefix -        # Split top/bottom (same cwd)
+prefix |        # Split left/right (preserves cwd)
+prefix -        # Split top/bottom (preserves cwd)
 prefix h/j/k/l  # Navigate panes (vim-style)
-prefix Ctrl+h/j/k/l  # Resize panes (repeatable)
-prefix R        # Refresh (refresh-client)
-prefix r        # Reload config
+prefix Ctrl+h/j/k/l  # Resize panes by 5 lines (repeatable)
+prefix space    # Toggle pane layouts
+prefix {        # Swap pane left
+prefix }        # Swap pane right
+prefix !        # Break pane into new window
+prefix x        # Kill pane
 ```
 
-**Copy mode:**
+**Copy Mode (for selecting & copying text):**
 ```
 prefix [        # Enter copy mode
 /               # Search forward
 ?               # Search backward
 hjkl            # Navigate (vim-style)
 Space           # Start selection
-Enter           # Copy selection
+Enter           # Copy selection (copies to clipboard via tmux-yank)
 q               # Exit copy mode
+```
+
+**Configuration & Maintenance:**
+```
+prefix r        # Reload ~/.config/tmux/tmux.conf
+prefix R        # Refresh client (updates terminal size)
+prefix ?        # List all keybindings
 ```
 
 ### Commands
@@ -188,9 +202,40 @@ Modern Vim-like editor with LSP, treesitter, and plugins via lazy.nvim.
 ### First Run
 
 ```bash
-nvim                # First run installs plugins via lazy.nvim
-:Lazy              # Opens plugin manager
-:Mason             # Opens LSP/formatter/linter manager
+nvim                # First run installs plugins via lazy.nvim (takes ~30-60 seconds)
+```
+
+Once inside Neovim, complete these setup steps:
+
+**1. Verify plugin installation:**
+```vim
+:Lazy                  " Check that all plugins installed successfully
+:checkhealth           " Verify dependencies (nvim, python, node, etc.)
+```
+
+**2. Install Treesitter parsers** (syntax highlighting):
+```vim
+:TSUpdate              " Install/update tree-sitter parsers for all languages
+:TSInstall python javascript typescript lua bash json yaml markdown html css
+```
+
+**3. Install language servers & tools** (via Mason):
+```vim
+:Mason                 " Opens interactive package manager
+```
+
+Install these (common recommendations):
+- **Python:** `python-lsp-server`, `debugpy`, `black`, `isort`
+- **JavaScript/TypeScript:** `eslint_d`, `prettier`, `typescript-language-server`
+- **Lua:** `lua-language-server`, `stylua`
+- **General:** `shellcheck` (bash), `jsonls` (JSON)
+
+Search by typing the name (e.g. `/python-lsp`), then press `i` to install.
+
+**4. Verify LSP setup:**
+```vim
+:checkhealth lsp       " Check LSP configuration
+:LspInfo               " Show installed LSP servers
 ```
 
 ### Leader Key
@@ -208,37 +253,62 @@ Default leader: `,` (comma)
 
 ### Common Keybindings
 
-**Navigation:**
+**Window Navigation & Resizing:**
 ```
-gd              # Go to definition
-gr              # Go to references
-K               # Hover (documentation)
-Ctrl+k Ctrl+h   # Signature help
+Ctrl+h/j/k/l       # Navigate between splits (Vim-style)
+Ctrl+Up/Down       # Resize split vertically (-/+ 2 lines)
+Ctrl+Left/Right    # Resize split horizontally (-/+ 2 columns)
 ```
 
-**Telescope:**
+**LSP & Diagnostics:**
 ```
-,ff             # Find files
-,fb             # Find buffers
-,fg             # Grep in cwd
-,fh             # Help tags
+gd                 # Go to definition
+gr                 # Go to references
+K                  # Hover (documentation)
+Ctrl+k Ctrl+h      # Signature help
+Space+e            # Open diagnostics float
+]d                 # Next diagnostic
+[d                 # Previous diagnostic
+Space+q            # Set diagnostics to location list
+```
+
+**Telescope (Fuzzy Finding):**
+```
+,ff                # Find files
+,fb                # Find buffers
+,fg                # Grep in cwd
+,fh                # Help tags
 ```
 
 **Editing:**
 ```
-gcc             # Toggle comment (line)
-gc              # Toggle comment (visual selection)
-=               # Format selection
-==              # Format line
+gcc                # Toggle comment (line)
+gc                 # Toggle comment (visual selection)
+=                  # Format selection
+==                 # Format line
+<, >               # Keep selection after indent (visual mode)
+s, S               # Flash jump (motion plugin)
 ```
 
-**LSP:**
+**Code Actions & Formatting:**
 ```
-,ca             # Code action
-,rn             # Rename symbol
-,f              # Format document
-]d              # Next diagnostic
-[d              # Previous diagnostic
+,ca                # Code action
+,rn                # Rename symbol
+,f                 # Format document
+```
+
+**Debugging** (requires debugger to be running):
+```
+,db                # Toggle breakpoint
+,dB                # Conditional breakpoint
+,dc                # Continue execution
+,di                # Step into
+,dn                # Step over (next)
+,do                # Step out
+,dr                # Open REPL
+,dl                # Run last
+,dt                # Terminate debugger
+,du                # Toggle DAP UI
 ```
 
 ### Commands

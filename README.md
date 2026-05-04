@@ -76,9 +76,16 @@ The install script will:
 3. **Install Neovim plugins:**
    ```bash
    nvim
-   # Inside Neovim, lazy.nvim will auto-install plugins
-   # Or run: :Lazy sync
+   # First run installs all plugins automatically via lazy.nvim (~30-60 seconds)
    ```
+   Once inside Neovim, run these commands to complete setup:
+   ```vim
+   :Lazy                              " Verify all plugins installed
+   :TSUpdate                          " Install tree-sitter parsers
+   :Mason                             " Install language servers and tools
+   :checkhealth                       " Verify dependencies
+   ```
+   See [TOOLS.md](TOOLS.md#editor-neovim) for detailed setup instructions.
 
 4. **Make Zsh your default shell:**
    ```bash
