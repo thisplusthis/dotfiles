@@ -14,7 +14,7 @@
 # Neovim
 nvim/lazy-lock.json
 nvim/.netrwhist
-nvim-config/plugin/**
+nvim/plugin/**
 
 # Node
 node_modules/

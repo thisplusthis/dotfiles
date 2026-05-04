@@ -5,6 +5,8 @@ Complete reference for the tools configured in this dotfiles repository.
 ## Table of Contents
 
 - [Shell (Zsh)](#shell-zsh)
+  - [Aliases](#aliases)
+  - [Shell Functions](#shell-functions)
 - [Terminal Multiplexer (Tmux)](#terminal-multiplexer-tmux)
 - [Editor (Neovim)](#editor-neovim)
 - [Prompt (Starship)](#prompt-starship)
@@ -13,6 +15,10 @@ Complete reference for the tools configured in this dotfiles repository.
 - [Version Control (Git)](#version-control-git)
 - [CLI Tools](#cli-tools)
 - [Development Tools](#development-tools)
+- [Code Formatters & Linters](#code-formatters--linters)
+- [Quick Reference: Daily Workflow](#quick-reference-daily-workflow)
+- [Troubleshooting](#troubleshooting)
+- [Further Reading](#further-reading)
 
 ---
 
@@ -87,6 +93,61 @@ dpsa        # docker ps -a (formatted)
 dlog        # docker logs -f (last 50)
 dexec       # docker exec -it (interactive bash)
 dcr         # docker stop + remove all containers
+```
+
+### Shell Functions
+
+Custom functions defined in `.zshrc`:
+
+**Directory & Files:**
+```bash
+extract archive.tar.gz     # Auto-extract any archive format (.tar.gz, .zip, .rar, etc.)
+maketar directory/         # Create tar.gz from directory
+makezip directory/         # Create zip from directory
+```
+
+**Development:**
+```bash
+workon projectname         # Activate virtualenv (searches .venv or ~/.virtualenvs/)
+workon                     # Activate local .venv if present
+gpip install package       # Pip install without venv requirement (uses sudo)
+```
+
+**Encoding:**
+```bash
+b64 "string"              # Base64 encode
+```
+
+**Git:**
+```bash
+gbranch                   # Interactive fuzzy branch checkout (select branch with fzf)
+```
+
+**Docker:**
+```bash
+dsi container_name        # Stop container by name/pattern
+drmi container_name       # Remove container by name/pattern
+```
+
+**Search & Code Navigation:**
+```bash
+rg-fzf "pattern"          # Ripgrep + fzf: search files interactively
+                          # Shows matching lines, preview with context
+                          # Select result to jump to file:line
+```
+
+**Versions:**
+```bash
+versions                  # Show versions of Node, Python, Ruby, Go, Rust, Docker, Git, Make
+```
+
+**Auto-detection Functions (smart runners):**
+```bash
+test                      # Auto-detect and run tests (npm test, pytest, make test)
+lint                      # Auto-detect and run linter (npm lint, ruff, make lint)
+format                    # Auto-detect and run formatter (npm format, ruff, make format)
+build                     # Auto-detect and run build (npm build, make, python build)
+serve                     # Auto-detect and run dev server (npm dev/start, Django, make serve)
 ```
 
 ---
@@ -452,18 +513,57 @@ Git diffs use **delta** for:
 - Syntax highlighting
 - Color theme: Dracula
 
-### Common Aliases
+### Adding & Committing
 
-**Quick status:**
+**Stage changes:**
 ```
-git a           # git add .
-git ai          # git add -i (interactive)
-git c           # git commit
-git cm "msg"    # git commit -m
-git s           # git status
-git sb          # git status -s -b (short)
-git d           # git diff
-git dc          # git diff --cached
+git a           # add . (stage all changes)
+git ai          # add -i (interactive — choose which hunks to stage)
+```
+
+**Commit:**
+```
+git c           # commit (opens editor for detailed message)
+git cm "msg"    # commit -m (quick commit with message)
+git ca          # commit -a (commit all tracked files)
+git cam         # commit -am (stage all + commit in one)
+```
+
+**Amend last commit:**
+```
+git cd          # commit --amend (edit last commit message)
+git cad         # commit -a --amend (add changes + amend last commit)
+```
+
+**Common workflow:**
+```bash
+# Stage specific changes interactively
+git ai                          # Pick which hunks to stage
+
+# Quick commit
+git cm "Fix typo in README"
+
+# Or if you forgot to stage
+git cam "Add new feature"       # Stage all tracked + commit
+
+# Oops, forgot something
+git add docs/
+git cad                         # Add to last commit
+```
+
+**Other commit variants:**
+```
+git cem         # commit --allow-empty -m (empty commit, useful for triggering CI)
+git ced         # commit --allow-empty --amend (amend with empty commit)
+```
+
+### Quick Status & Inspection
+
+```
+git s           # status
+git sb          # status -s -b (short, with branch)
+git d           # diff (unstaged changes)
+git dc          # diff --cached (staged changes)
 ```
 
 **Branches & remotes:**
@@ -495,6 +595,46 @@ git m           # git merge
 git ma          # git merge --abort
 git pb          # git pull --rebase
 ```
+
+### Pushing & Pulling Without Origin
+
+The most common push/pull aliases work with your tracking branch automatically — no need to specify `origin`:
+
+**Push (to tracked remote):**
+```
+git ps              # push (uses upstream tracking)
+git psu             # push -u (set upstream on first push)
+git psf             # push -f (force push)
+```
+
+**Pull (from tracked remote):**
+```
+git pl              # pull (from upstream tracking)
+git pb              # pull --rebase (rebase instead of merge)
+```
+
+**How it works:** When you create a branch locally and push with `-u` (e.g. `git psu`), Git tracks which remote branch it came from. After that, `git ps` and `git pl` automatically use that tracking branch — no need to say `git ps origin` or `git pl origin`.
+
+**Example workflow:**
+```bash
+# Create and push new feature branch
+git ob feature/my-thing      # checkout -b (create branch)
+git add .
+git commit -m "My changes"
+git psu                      # push -u origin feature/my-thing (sets tracking)
+
+# Later, just use short form
+git pl                       # pull from origin feature/my-thing
+git ps                       # push to origin feature/my-thing
+```
+
+**If you need to push/pull from origin explicitly:**
+```
+git pso             # push origin (current branch)
+git plo             # pull origin (current branch)
+```
+
+**Note:** This works because `.gitconfig` has `pull.rebase = true`, so pulls default to rebase (cleaner history) unless you have merge commits.
 
 ### User Config
 
@@ -643,6 +783,181 @@ glow --style light README.md      # Use light style
 - Auto-pagination for large files
 - Multiple style options (dark, light, pink, dracula)
 - Useful for reading documentation and commit messages
+
+### Ripgrep (Better Grep)
+
+Ultra-fast recursive search tool, respects `.gitignore` by default.
+
+```bash
+rg "pattern"                       # Search for pattern in files
+rg "pattern" -A 2 -B 2            # Show context (2 lines before/after)
+rg "pattern" --type rust          # Search only Rust files
+rg "pattern" src/                 # Search specific directory
+rg "^TODO"                        # Regex support
+rg -i "pattern"                   # Case-insensitive
+```
+
+**Features:**
+- Respects `.gitignore` (no searching vendor, node_modules, etc.)
+- Multi-threaded by default
+- Regex support
+- Very fast (faster than grep, ack, ag)
+- Type filtering (`--type rust`, `--type python`, etc.)
+
+**Integration:** Used in `rg-fzf` shell function for interactive fuzzy search (see Shell Functions below).
+
+### Jq
+
+Command-line JSON processor for parsing and transforming JSON.
+
+```bash
+jq '.' file.json                  # Pretty-print JSON
+jq '.name' file.json              # Extract field
+jq '.items[] | .id' file.json     # Extract array elements
+jq 'map(.price) | add' file.json  # Sum prices
+curl https://api.example.com | jq '.data | length'  # Count API results
+```
+
+**Features:**
+- Powerful query language
+- Filters, transformations, grouping
+- Works with streams
+- Much better than grep/sed for JSON
+
+### Yq
+
+YAML processor (like jq but for YAML).
+
+```bash
+yq '.name' config.yaml            # Extract field
+yq '.servers[0].host' config.yaml # Array access
+yq 'eval' file.yaml               # Pretty-print YAML
+yq '.metadata |= . + {"new": "field"}' input.yaml  # Merge
+```
+
+### Tree
+
+Directory tree visualization.
+
+```bash
+tree                              # Show tree of current directory
+tree -L 2                         # Limit depth to 2 levels
+tree -I 'node_modules'            # Exclude directories
+tree -h                           # Human-readable file sizes
+tree -a                           # Include hidden files
+```
+
+**Note:** Also available as simple alias `lt` (eza tree mode).
+
+### Httpie
+
+Human-friendly HTTP client for testing APIs.
+
+```bash
+http GET example.com              # Simple GET
+http POST example.com name=value  # POST with JSON body
+http -a user:pass GET example.com # Basic auth
+http --headers GET example.com    # Show response headers only
+http --form POST example.com file@/path/to/file  # File upload
+```
+
+**Features:**
+- Cleaner syntax than curl
+- Automatic JSON formatting
+- Cookie support
+- Session management
+
+### Btop
+
+System resource monitor (CPU, memory, disk, network).
+
+```bash
+btop                              # Launch interactive monitor
+# Inside btop:
+# - 'q' to quit
+# - 1-4 to toggle graphs
+# - 'h' for help
+```
+
+**Features:**
+- Real-time CPU, memory, disk, network monitoring
+- Per-process view
+- Color-coded by usage
+- Customizable layout
+
+### Ctop
+
+Docker container monitoring (like btop but for containers).
+
+```bash
+ctop                              # Launch interactive container monitor
+# Inside ctop:
+# - 'q' to quit
+# - ↑↓ to navigate containers
+# - 'e' to exec into container
+# - 'l' to see logs
+```
+
+### w3m
+
+Terminal web browser.
+
+```bash
+w3m https://example.com           # Open website
+w3m duckduckgo.com                # Search (aliased as 'web')
+# Inside w3m:
+# - 'q' to quit
+# - 'j/k' to scroll
+# - 'H' for help
+```
+
+### Wget
+
+File downloader.
+
+```bash
+wget https://example.com/file.zip # Download file
+wget -r https://example.com       # Recursive download (mirror site)
+wget -O custom.zip https://example.com/file.zip  # Rename on download
+```
+
+### Tldr
+
+Simplified man pages with practical examples.
+
+```bash
+tldr ls                           # Show common usage of ls
+tldr grep                         # Show common grep patterns
+tldr --list                       # List all available pages
+tldr --update                     # Update local pages
+```
+
+**Features:**
+- Much simpler than `man` pages
+- Practical examples
+- Community-driven
+- Works offline
+
+### Ipython
+
+Enhanced Python REPL with features like syntax highlighting, auto-completion, and magic commands.
+
+```bash
+ipython                           # Start interactive shell
+ipython file.py                   # Run Python file with interactive shell after
+# Inside ipython:
+# - %time statement              # Time execution
+# - %timeit statement             # Benchmark
+# - %history                      # Show history
+# - %run file.py                 # Run file
+```
+
+**Features:**
+- Syntax highlighting
+- Tab completion
+- Magic commands
+- Shell access (!)
+- Better than python REPL
 
 ---
 
