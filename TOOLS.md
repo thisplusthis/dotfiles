@@ -89,13 +89,6 @@ dexec       # docker exec -it (interactive bash)
 dcr         # docker stop + remove all containers
 ```
 
-**Project shortcuts:**
-```bash
-catlas      # cd ~/dev/kittyhawk/petcare-docker && cursor agent
-cbook       # cd ~/dev/kittyhawk/gradebook && cursor agent
-cleanatlas  # Clean up Atlas local cache files
-```
-
 ---
 
 ## Terminal Multiplexer (Tmux)
