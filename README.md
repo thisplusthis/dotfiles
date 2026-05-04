@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal shell, editor, and git configuration for macOS.
+Modern shell, editor, and git configuration for macOS.
 
 ## Table of Contents
 
