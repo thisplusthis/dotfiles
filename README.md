@@ -55,7 +55,7 @@ The install script will:
 - docker, lazygit, lazydocker, gh, nvm, rust, uv
 
 **Utilities:**
-- btop, ctop, jq, yq, pandoc, w3m, httpie, tldr, tree, wget, tree-sitter
+- btop, ctop, jq, yq, pandoc, w3m, httpie, tldr, tree, wget, tree-sitter, glow
 
 ## Usage
 

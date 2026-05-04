@@ -599,6 +599,25 @@ Interactive docker UI in the terminal.
 lazydocker            # Start interactive docker UI
 ```
 
+### Glow
+
+Terminal markdown viewer with syntax highlighting and pagination.
+
+```bash
+glow README.md                     # View markdown file
+glow                              # View all markdown files in current directory
+glow -p README.md                 # View in pager mode
+glow --style dark README.md       # Use dark style
+glow --style light README.md      # Use light style
+```
+
+**Features:**
+- Syntax highlighting for code blocks
+- Table formatting
+- Auto-pagination for large files
+- Multiple style options (dark, light, pink, dracula)
+- Useful for reading documentation and commit messages
+
 ---
 
 ## Development Tools

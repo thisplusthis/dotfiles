@@ -81,6 +81,7 @@ PACKAGES=(
     tree
     wget
     tree-sitter
+    glow
 )
 
 for package in "${PACKAGES[@]}"; do
