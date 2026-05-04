@@ -10,7 +10,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Directories
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 HOME_DIR="$HOME"
 
 echo -e "${BLUE}🔧 Dotfiles Install Script${NC}\n"
