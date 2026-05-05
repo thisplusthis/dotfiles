@@ -453,9 +453,14 @@ cd $(find . -type d | fzf)
 
 ## SQL IDE (Harlequin)
 
-**Setup:** `./install-harlequin.sh` (uses `uv`) | **Config:** `~/.harlequin.toml` (auto-generated)
+**Setup:** `./install-harlequin.sh` (uses `uv`) | **Config:** `config/harlequin.toml` (tracked) | **Generated:** `~/.harlequin.toml` (git-ignored, with credentials)
 
 Terminal-based SQL IDE with support for MySQL, DuckDB, SQLite, and more. Installed via [`uv`](https://docs.astral.sh/uv/) for fast, reliable Python package management.
+
+**Configuration approach:**
+- `config/harlequin.toml` — Tracked in git (no credentials, safe to share)
+- `~/.harlequin.toml` — Generated at setup time with credentials injected from `~/.zsh_private`
+- Credentials never appear in version history
 
 ### Installation & Credentials
 

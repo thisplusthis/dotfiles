@@ -1,0 +1,27 @@
+# Harlequin SQL IDE Configuration
+# Credentials are NOT stored here — they come from environment variables
+# Set these in ~/.zsh_private:
+#   export HARLEQUIN_HOST="127.0.0.1"
+#   export HARLEQUIN_PORT=3306
+#   export HARLEQUIN_USER="atlas"
+#   export HARLEQUIN_PASSWORD="atlas"
+#   export HARLEQUIN_DATABASE="atlas"
+#
+# This file is tracked in git — no sensitive data here.
+# The ~/.harlequin.toml is generated from this template by install-harlequin.sh
+
+default_profile = "atlas"
+
+[profiles.atlas]
+type = "mysql"
+# Host/port for local Atlas development
+host = "127.0.0.1"
+port = 3306
+# Database name
+database = "atlas"
+# Theme preferences
+theme = "monokai"
+
+# ⚠️ CREDENTIALS ARE NEVER STORED IN THIS FILE
+# Username and password are injected from environment variables at installation time.
+# See: install-harlequin.sh and ~/.zsh_private

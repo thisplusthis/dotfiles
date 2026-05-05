@@ -82,22 +82,38 @@ else
     echo -e "${GREEN}✓${NC} All credentials found"
 fi
 
-# Step 4: Generate config from template
+# Step 4: Generate config from dotfiles version with credentials injected
 echo -e "${BLUE}⚙️  Generating Harlequin config...${NC}"
 
 CONFIG_FILE="$HOME_DIR/.harlequin.toml"
-TEMPLATE_FILE="$DOTFILES_DIR/config/harlequin.toml.template"
+SOURCE_FILE="$DOTFILES_DIR/config/harlequin.toml"
 
-# Create config from template with env var substitution
-cat "$TEMPLATE_FILE" | \
-    sed "s|\${HARLEQUIN_HOST}|$HARLEQUIN_HOST|g" | \
-    sed "s|\${HARLEQUIN_PORT}|$HARLEQUIN_PORT|g" | \
-    sed "s|\${HARLEQUIN_USER}|$HARLEQUIN_USER|g" | \
-    sed "s|\${HARLEQUIN_PASSWORD}|$HARLEQUIN_PASSWORD|g" | \
-    sed "s|\${HARLEQUIN_DATABASE}|$HARLEQUIN_DATABASE|g" \
-    > "$CONFIG_FILE"
+# Verify source config exists
+if [[ ! -f "$SOURCE_FILE" ]]; then
+    echo -e "${RED}✗${NC} Config file not found: $SOURCE_FILE"
+    exit 1
+fi
+
+# Generate ~/.harlequin.toml with credentials from environment variables
+cat > "$CONFIG_FILE" << EOF
+# Harlequin SQL IDE Configuration
+# Generated from: ~/dev/dotfiles/config/harlequin.toml
+# Credentials injected from: ~/.zsh_private
+
+default_profile = "atlas"
+
+[profiles.atlas]
+type = "mysql"
+host = "$HARLEQUIN_HOST"
+port = $HARLEQUIN_PORT
+user = "$HARLEQUIN_USER"
+password = "$HARLEQUIN_PASSWORD"
+database = "$HARLEQUIN_DATABASE"
+theme = "monokai"
+EOF
 
 echo -e "${GREEN}✓${NC} Config generated at $CONFIG_FILE"
+echo -e "${GREEN}✓${NC} Source config: $SOURCE_FILE (tracked in git, no credentials)"
 
 # Step 5: Create convenience alias
 echo -e "${BLUE}🔗 Setting up shell alias...${NC}"
