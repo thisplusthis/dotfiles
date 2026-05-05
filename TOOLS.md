@@ -453,13 +453,19 @@ cd $(find . -type d | fzf)
 
 ## SQL IDE (Harlequin)
 
-**Setup:** `./install-harlequin.sh` | **Config:** `~/.harlequin.toml` (auto-generated)
+**Setup:** `./install-harlequin.sh` (uses `uv`) | **Config:** `~/.harlequin.toml` (auto-generated)
 
-Terminal-based SQL IDE with support for MySQL, DuckDB, SQLite, and more.
+Terminal-based SQL IDE with support for MySQL, DuckDB, SQLite, and more. Installed via [`uv`](https://docs.astral.sh/uv/) for fast, reliable Python package management.
 
 ### Installation & Credentials
 
-1. **Set credentials in `~/.zsh_private`:**
+1. **Ensure `uv` is installed** (included in `./install.sh`):
+   ```bash
+   brew list uv  # Verify
+   uv --version  # Check version
+   ```
+
+2. **Set credentials in `~/.zsh_private`:**
    ```bash
    # Harlequin SQL IDE (Atlas database)
    export HARLEQUIN_HOST="127.0.0.1"
@@ -469,17 +475,17 @@ Terminal-based SQL IDE with support for MySQL, DuckDB, SQLite, and more.
    export HARLEQUIN_DATABASE="atlas"
    ```
 
-2. **Run the setup script:**
+3. **Run the setup script:**
    ```bash
    ~/dev/dotfiles/install-harlequin.sh
    ```
-   This will:
-   - Create `~/.virtualenvs/harlequin` virtualenv
-   - Install Harlequin + MySQL adapter
+   This will (using `uv`):
+   - Create `~/.virtualenvs/harlequin` virtualenv (with `uv venv`)
+   - Install Harlequin + MySQL adapter (with `uv pip install`)
    - Generate `~/.harlequin.toml` from your credentials
    - Add `hq` alias to `~/.zsh_aliases`
 
-3. **Reload shell:**
+4. **Reload shell:**
    ```bash
    source ~/.zsh_private
    ```

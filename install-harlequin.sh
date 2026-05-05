@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 # Install and configure Harlequin SQL IDE with secure credential handling
+# Uses `uv` for fast, reliable Python package management
 
 set -e
 
@@ -14,26 +15,34 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 HOME_DIR="$HOME"
 VENV_DIR="$HOME_DIR/.virtualenvs/harlequin"
 
-echo -e "${BLUE}🔧 Harlequin Setup${NC}\n"
+echo -e "${BLUE}🔧 Harlequin Setup (using uv)${NC}\n"
 
-# Step 1: Create virtualenv
-echo -e "${BLUE}📦 Setting up Python virtualenv...${NC}"
+# Check for uv
+if ! command -v uv &> /dev/null; then
+    echo -e "${RED}✗ uv is not installed${NC}"
+    echo -e "${YELLOW}→ Install with:${NC} brew install uv"
+    exit 1
+fi
+
+echo -e "${GREEN}✓${NC} uv is available ($(uv --version))"
+
+# Step 1: Create virtualenv with uv
+echo -e "${BLUE}📦 Setting up Python virtualenv with uv...${NC}"
 if [[ -d "$VENV_DIR" ]]; then
     echo -e "${GREEN}✓${NC} Virtualenv already exists at $VENV_DIR"
 else
     echo -e "${YELLOW}→${NC} Creating virtualenv at $VENV_DIR..."
-    python3 -m venv "$VENV_DIR"
+    uv venv "$VENV_DIR" >/dev/null 2>&1
     echo -e "${GREEN}✓${NC} Virtualenv created"
 fi
 
-# Step 2: Install Harlequin
+# Step 2: Install Harlequin with uv
 echo -e "${BLUE}📚 Installing Harlequin...${NC}"
-"$VENV_DIR/bin/pip" install --upgrade pip >/dev/null 2>&1
 if "$VENV_DIR/bin/pip" show harlequin >/dev/null 2>&1; then
     echo -e "${GREEN}✓${NC} Harlequin already installed"
 else
     echo -e "${YELLOW}→${NC} Installing Harlequin with MySQL adapter..."
-    "$VENV_DIR/bin/pip" install harlequin-mysql >/dev/null 2>&1
+    uv pip install --python "$VENV_DIR/bin/python" harlequin-mysql >/dev/null 2>&1
     echo -e "${GREEN}✓${NC} Harlequin installed"
 fi
 

@@ -72,7 +72,7 @@ PACKAGES=(
     # Development
     nvm
     rust
-    uv
+    uv                # Python package/virtualenv manager (fast, reliable)
     ipython
 
     # Code formatters & linters (system-level)
