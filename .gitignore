@@ -3,6 +3,7 @@
 .bash_private
 .env
 .env.local
+.harlequin.toml  # Generated from credentials in .zsh_private
 
 # System
 .DS_Store

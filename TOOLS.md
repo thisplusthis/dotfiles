@@ -11,6 +11,7 @@ Complete reference for the tools configured in this dotfiles repository.
 - [Editor (Neovim)](#editor-neovim)
 - [Prompt (Starship)](#prompt-starship)
 - [Fuzzy Finder (Fzf)](#fuzzy-finder-fzf)
+- [SQL IDE (Harlequin)](#sql-ide-harlequin)
 - [Terminal Emulators](#terminal-emulators)
 - [Version Control (Git)](#version-control-git)
 - [CLI Tools](#cli-tools)
@@ -447,6 +448,78 @@ cd $(find . -type d | fzf)
 - **Default command:** `fd --type f --hidden --follow --exclude .git`
 - **Preview:** Syntax highlighted with bat
 - **Multi-select:** `Tab` to select multiple items
+
+---
+
+## SQL IDE (Harlequin)
+
+**Setup:** `./install-harlequin.sh` | **Config:** `~/.harlequin.toml` (auto-generated)
+
+Terminal-based SQL IDE with support for MySQL, DuckDB, SQLite, and more.
+
+### Installation & Credentials
+
+1. **Set credentials in `~/.zsh_private`:**
+   ```bash
+   # Harlequin SQL IDE (Atlas database)
+   export HARLEQUIN_HOST="127.0.0.1"
+   export HARLEQUIN_PORT=3306
+   export HARLEQUIN_USER="atlas"
+   export HARLEQUIN_PASSWORD="atlas"
+   export HARLEQUIN_DATABASE="atlas"
+   ```
+
+2. **Run the setup script:**
+   ```bash
+   ~/dev/dotfiles/install-harlequin.sh
+   ```
+   This will:
+   - Create `~/.virtualenvs/harlequin` virtualenv
+   - Install Harlequin + MySQL adapter
+   - Generate `~/.harlequin.toml` from your credentials
+   - Add `hq` alias to `~/.zsh_aliases`
+
+3. **Reload shell:**
+   ```bash
+   source ~/.zsh_private
+   ```
+
+### Usage
+
+```bash
+hq                  # Launch Harlequin (uses default "atlas" profile)
+hq --help           # Show help
+hq -P none          # Launch without default profile
+```
+
+### Navigation
+
+Inside Harlequin:
+
+```
+Ctrl+N              # Next pane
+Ctrl+P              # Previous pane
+Ctrl+F              # Search
+Ctrl+T              # Toggle Data Catalog
+Ctrl+Q              # Quit
+```
+
+### Features
+
+- **Syntax highlighting** — SQL syntax in editor
+- **Data Catalog** — Browse tables, columns, indexes
+- **Results Viewer** — Query results with sorting/filtering
+- **Auto-complete** — Table & column names
+- **History** — Query history (accessible via search)
+
+### Configuration
+
+The config is **auto-generated** from your credentials in `~/.zsh_private`. To update:
+
+1. Edit credentials in `~/.zsh_private`
+2. Re-run: `~/dev/dotfiles/install-harlequin.sh`
+
+**Note:** `~/.harlequin.toml` is git-ignored for security.
 
 ---
 
