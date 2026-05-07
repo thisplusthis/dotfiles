@@ -1,6 +1,6 @@
-# Configure [user] locally or in ~/.zsh_private:
-# git config --global user.name "Your Name"
-# git config --global user.email "your@email.com"
+# [user] is loaded from ~/.gitconfig.local (not tracked)
+[include]
+    path = ~/.gitconfig.local
 
 [color]
     ui = true
