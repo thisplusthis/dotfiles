@@ -167,6 +167,21 @@ if [[ -f "$HOME_DIR/.tmux.conf" ]] && [[ ! -L "$HOME_DIR/.tmux.conf" ]]; then
     rm "$HOME_DIR/.tmux.conf"
 fi
 
+# Remove legacy ~/.tmux directory if it exists
+if [[ -d "$HOME_DIR/.tmux" ]]; then
+    echo -e "${YELLOW}→${NC} Removing legacy ~/.tmux/ (plugins now live in ~/.config/tmux/plugins/)..."
+    rm -rf "$HOME_DIR/.tmux"
+fi
+
+# Bootstrap TPM (Tmux Plugin Manager)
+if [[ ! -d "$HOME_DIR/.config/tmux/plugins/tpm" ]]; then
+    echo -e "${YELLOW}→${NC} Installing TPM..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME_DIR/.config/tmux/plugins/tpm"
+    echo -e "${GREEN}✓${NC} TPM installed (run prefix + I inside tmux to install plugins)"
+else
+    echo -e "${GREEN}✓${NC} TPM (already installed)"
+fi
+
 # Create .zsh_private if it doesn't exist (for credentials/tokens)
 if [[ ! -f "$HOME_DIR/.zsh_private" ]]; then
     cat > "$HOME_DIR/.zsh_private" << 'EOF'

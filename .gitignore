@@ -12,6 +12,9 @@
 *~
 .vscode/
 
+# Tmux plugins (managed by TPM)
+tmux/plugins/
+
 # Neovim
 nvim/lazy-lock.json
 nvim/.netrwhist
